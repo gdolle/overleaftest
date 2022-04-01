@@ -1,0 +1,64 @@
+\begin{figure}[!htp]
+\centering
+
+\definecolor{bluegantt}{HTML}{09466d}
+\definecolor{donegantt}{HTML}{2576ab}
+\definecolor{todogantt}{HTML}{a4dbff}
+\definecolor{linkgantt}{HTML}{2576ab}
+\definecolor{groupgantt}{HTML}{2576ab}
+\begin{ganttchart}[
+    y unit title=0.5cm,
+    y unit chart=0.7cm,
+    x unit=1.8cm,
+    vgrid,
+    vgrid style/.style={draw=black!5, line width=.75pt},
+    %hgrid,
+    time slot format=isodate-yearmonth,
+    time slot unit=month,
+    title/.append style={draw=none, fill=bluegantt},
+    title label font=\sffamily\bfseries\color{white},
+    title label node/.append style={below=-1.6ex},
+    %title left shift=.05,
+    %title right shift=-.05,
+    title height=1.2,
+    bar/.append style={draw=none, fill=donegantt},
+    bar height=.6,
+    bar label font=\normalsize\color{bluegantt},
+    group left shift=0,
+    group right shift=0,
+    group top shift=.6,
+    group height=.15,
+    group peaks height=.1,
+    group peaks width=.05,
+    group peaks tip position=0,
+    bar incomplete/.append style={fill=todogantt}
+]{2022-01}{2022-06}
+\gantttitlecalendar{year,month=shortname} \\
+%================
+\ganttbar[
+    progress=100,
+    bar progress label font=\small\color{donegantt},
+    bar progress label node/.append style={right=4pt},
+    bar label font=\normalsize\color{donegantt},
+    name=pp] {Preliminary Project}{2022-01}{2022-01} \\
+\ganttset{progress label text={}, link/.style={linkgantt, -to}}
+%----------------
+\ganttgroup{Objective 1}{2022-02}{2022-04} \\
+\ganttbar[progress=4, name=T1A]{Task A}{2022-02}{2022-03} \\
+\ganttlinkedbar[progress=0]{Task B}{2022-03}{2022-04} \\
+%----------------
+\ganttgroup{Objective 2}{2022-03}{2022-06} \\
+\ganttbar[progress=15, name=T2A]{Task A}{2022-03}{2022-05} \\
+\ganttlinkedbar[progress=0]{Task B}{2022-04}{2022-05} \\
+%----------------
+\ganttgroup{Objective 3}{2022-05}{2022-06} \\
+\ganttbar[progress=0]{Task A}{2022-05}{2022-06}
+%================
+\ganttset{link/.style={linkgantt}}
+\ganttlink[link mid=.4]{pp}{T1A}
+\ganttlink[link mid=.159]{pp}{T2A}
+\end{ganttchart}
+
+\caption{Gantt Chart avec pgfgantt}
+\label{fig:gantt}
+\end{figure}

@@ -1,0 +1,57 @@
+\begin{figure}[!htp]
+    \centering
+    \def\layersep{2.8cm}
+    \begin{tikzpicture}[shorten >=1pt,-Latex,draw=black!80, node distance=\layersep]
+        \tikzstyle{every pin edge}=[Latex-,shorten <=2pt]
+        \tikzstyle{neuron}=[circle,draw,fill=black!25,minimum size=30pt,inner sep=0.5pt]
+        \tikzstyle{input neuron}=[neuron, fill=blue!50];
+        \tikzstyle{output neuron}=[neuron, fill=red!50];
+        \tikzstyle{hidden neuron}=[neuron, fill=black!10!green!10];
+        \tikzstyle{annot} = [text width=4em, text centered]
+
+        \def\NI{2}
+        \def\NH{3}
+        \def\NO{1}
+        
+        \def\shiftI{2/3}
+        \def\shiftO{1.25}
+        \def\shiftH{0}
+        
+        \def\sepfactor{1.25}
+
+        % Rond couche entree.
+        \foreach \I / \J in {1,...,\NI}
+            \node[input neuron,
+                  pin=left:Input \J] (I\I) at (0,-\J*\sepfactor-\shiftI) { x\J(t) };
+
+        % Rond couche cache.
+        \foreach \I / \J in {1,...,\NH}
+            \path[yshift=0cm]
+                node[hidden neuron] (H\I) at (\layersep,-\J*\sepfactor-\shiftH) { s\J(t) };
+
+        % Rond couche sortie.
+        \foreach \I / \J in {1,...,\NO}
+            \path[yshift=0cm]
+                node[output neuron,
+                    right of=H\I,
+                    pin={[pin edge={->}]right:Output},
+                    yshift=0cm] (O\I) at (\layersep,-\J*\sepfactor-\shiftO) { y\J(t) };
+
+        % Fleches entree->cache.
+        \foreach \I in {1,...,\NI}
+            \foreach \J in {1,...,\NH}
+                \path (I\I) edge[decorate] (H\J);
+
+        % Fleches cache->sortie.
+        \foreach \I in {1,...,\NH}
+            \foreach \J in {1,...,\NO}
+                \path (H\I) edge (O\J);
+                
+        % Annotations.
+        \node[annot,above of=H1, node distance=1cm,yshift=10pt] (hl) {\textcolor{black!50!green}{\textbf{Hidden layer}}};
+        \node[annot,left of=hl] {\textcolor{blue}{\textbf{Input layer}}};
+        \node[annot,right of=hl] {\textcolor{red}{\textbf{Output layer}}};
+    \end{tikzpicture}
+    \caption{Exemple tikz de réseau de neuronne qui construit $F$, tel que $F(x1,x2)=y$}
+    \label{fig:nn-tikz-example}
+\end{figure}
